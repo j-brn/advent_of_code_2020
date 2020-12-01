@@ -5,7 +5,7 @@
 1. install [cargo-aoc](https://github.com/gobanos/cargo-aoc)
 2. provide cargo-aoc with credentials 
    ```
-   cargo aoc credential -s <your advent of code session cookie>
+   cargo aoc credentials -s <your advent of code session cookie>
    ```
 3. download your input
    ```
