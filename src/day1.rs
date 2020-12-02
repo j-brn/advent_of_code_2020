@@ -32,7 +32,7 @@ fn find_summands(numbers: &[u32], n_summands: usize, sum: u32) -> Option<Vec<u32
     numbers
         .iter()
         .copied()
-        .filter(|x| *x < 2020 - min)
+        .filter(|x| *x < sum - min)
         .combinations(n_summands)
         .find(|x| x.iter().sum::<u32>() == sum)
 }
