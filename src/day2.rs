@@ -49,7 +49,7 @@ fn solve_part_2(input: &[(Policy, Password)]) -> usize {
             let pos1 = chars.get(policy.position_one - 1).unwrap();
             let pos2 = chars.get(policy.position_two - 1).unwrap();
 
-            (*pos1 == policy.character || *pos2 == policy.character) && pos1 != pos2
+            (*pos1 == policy.character) ^ (*pos2 == policy.character)
         })
         .count()
 }
