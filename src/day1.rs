@@ -12,7 +12,7 @@ fn input_generator(input: &str) -> Vec<u32> {
 /// find a pair of numbers that sums up to `sum`
 fn find_pair(mut numbers: Vec<u32>, sum: u32) -> Option<(u32, u32)> {
     let (mut l, mut r) = (0, numbers.len() - 1);
-    numbers.sort();
+    numbers.sort_unstable();
 
     while l < r {
         match (numbers[l], numbers[r]) {
