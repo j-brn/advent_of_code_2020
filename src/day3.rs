@@ -36,7 +36,7 @@ impl Map {
     pub fn square_at(&self, x: usize, y: usize) -> Option<Square> {
         self.squares
             .get(y)
-            .map(|row| row.iter().cycle().nth(x))
+            .map(|row| row.get(x % row.len()))
             .map(|opt| opt.copied())
             .flatten()
     }
