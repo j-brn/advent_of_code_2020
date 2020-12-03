@@ -60,9 +60,30 @@ mod tests {
 
     lazy_static! {
         static ref INPUT: Vec<(Policy, Password)> = vec![
-            (Policy { position_one: 1, position_two: 3, character: 'a'}, "abcde".to_string()),
-            (Policy { position_one: 1, position_two: 3, character: 'b'}, "cdefg".to_string()),
-            (Policy { position_one: 2, position_two: 9, character: 'c'}, "ccccccccc".to_string()),
+            (
+                Policy {
+                    position_one: 1,
+                    position_two: 3,
+                    character: 'a'
+                },
+                "abcde".to_string()
+            ),
+            (
+                Policy {
+                    position_one: 1,
+                    position_two: 3,
+                    character: 'b'
+                },
+                "cdefg".to_string()
+            ),
+            (
+                Policy {
+                    position_one: 2,
+                    position_two: 9,
+                    character: 'c'
+                },
+                "ccccccccc".to_string()
+            ),
         ];
     }
 
