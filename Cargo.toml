@@ -2,7 +2,7 @@
 name = "advent-of-code-2020"
 description = "my solutions for adventofcode 2020"
 version = "0.1.0"
-authors = ["Jonas Braun <me@jbrn.eu>"]
+authors = ["Jonas <me@jbrn.eu>"]
 edition = "2018"
 publish = false
 
@@ -13,6 +13,5 @@ bench = false
 aoc-runner = "0.3"
 aoc-runner-derive = "0.3"
 itertools = "0.9"
-
-[dev-dependencies]
 lazy_static = "1.4"
+regex = "1.4"
