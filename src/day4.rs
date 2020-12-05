@@ -1,9 +1,28 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use regex::Regex;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
-lazy_static! {
-    static ref COLOR_PATTERN: Regex = Regex::new("^#[0-9a-f]{6}$").unwrap();
+mod validation {
+    use regex::Regex;
+    use std::collections::HashSet;
+
+    lazy_static! {
+        static ref COLOR_PATTERN: Regex = Regex::new("^#[0-9a-f]{6}$").unwrap();
+    }
+
+    pub fn is_number_between(input: &str, min: u32, max: u32) -> bool {
+        match input.parse::<u32>() {
+            Ok(num) => num >= min && num <= max,
+            Err(_) => false,
+        }
+    }
+
+    pub fn is_one_of(input: &str, options: HashSet<&str>) -> bool {
+        options.contains(&input)
+    }
+
+    pub fn is_color_code(input: &str) -> bool {
+        COLOR_PATTERN.is_match(input)
+    }
 }
 
 type Rule = dyn Fn(&str) -> bool;
@@ -31,21 +50,6 @@ impl PropertyValidator {
             None => true,
         }
     }
-
-    fn is_number_between(input: &str, min: u32, max: u32) -> bool {
-        match input.parse::<u32>() {
-            Ok(num) => num >= min && num <= max,
-            Err(_) => false,
-        }
-    }
-
-    fn is_one_of(input: &str, options: Vec<&str>) -> bool {
-        options.contains(&input)
-    }
-
-    fn is_color_code(input: &str) -> bool {
-        COLOR_PATTERN.is_match(input)
-    }
 }
 
 impl Default for PropertyValidator {
@@ -53,30 +57,32 @@ impl Default for PropertyValidator {
         let mut validator = Self::new();
 
         validator.add_rule("byr", |s| s.len() == 4);
-        validator.add_rule("byr", |s| {
-            PropertyValidator::is_number_between(s, 1920, 2002)
-        });
+        validator.add_rule("byr", |s| validation::is_number_between(s, 1920, 2002));
 
         validator.add_rule("iyr", |s| s.len() == 4);
-        validator.add_rule("iyr", |s| {
-            PropertyValidator::is_number_between(s, 2010, 2020)
-        });
+        validator.add_rule("iyr", |s| validation::is_number_between(s, 2010, 2020));
 
         validator.add_rule("eyr", |s| s.len() == 4);
-        validator.add_rule("eyr", |s| {
-            PropertyValidator::is_number_between(s, 2020, 2030)
-        });
+        validator.add_rule("eyr", |s| validation::is_number_between(s, 2020, 2030));
 
         validator.add_rule("hgt", |s| {
-            (s.ends_with("cm") && PropertyValidator::is_number_between(&s[..s.len() - 2], 150, 193))
-                || (s.ends_with("in")
-                    && PropertyValidator::is_number_between(&s[..s.len() - 2], 59, 76))
+            (s.ends_with("cm") && validation::is_number_between(&s[..s.len() - 2], 150, 193))
+                || (s.ends_with("in") && validation::is_number_between(&s[..s.len() - 2], 59, 76))
         });
 
-        validator.add_rule("hcl", PropertyValidator::is_color_code);
+        validator.add_rule("hcl", validation::is_color_code);
 
         validator.add_rule("ecl", |s| {
-            PropertyValidator::is_one_of(s, vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
+            validation::is_one_of(s, {
+                let mut set = HashSet::new();
+                set.insert("amb");
+                set.insert("blu");
+                set.insert("brn");
+                set.insert("gry");
+                set.insert("hzl");
+                set.insert("oth");
+                set
+            })
         });
 
         validator.add_rule("pid", |s| s.len() == 9);
