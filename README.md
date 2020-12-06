@@ -3,11 +3,11 @@
 ## How to run?
 
 1. install [cargo-aoc](https://github.com/gobanos/cargo-aoc)
-2. provide cargo-aoc with credentials 
+2. provide cargo-aoc with credentials (optional)
    ```
    cargo aoc credentials -s <your advent of code session cookie>
    ```
-3. download your input
+3. download your input (optional)
    ```
    cargo aoc input
    ```
