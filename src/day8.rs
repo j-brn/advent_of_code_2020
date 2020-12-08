@@ -68,7 +68,7 @@ impl Vm {
         &mut self,
         breaker: Box<dyn Fn(Instruction) -> bool>,
     ) -> Result<i32, i32> {
-        let mut executed = HashSet::new();
+        let mut executed = HashSet::with_capacity(self.instructions.len());
 
         while let Some(&instruction) = self.instructions.get(self.ptr) {
             if executed.contains(&self.ptr) && breaker(instruction) {
